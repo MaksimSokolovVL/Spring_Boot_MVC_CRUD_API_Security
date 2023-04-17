@@ -6,7 +6,6 @@ import com.example.sokolov.spring_boot_mvc_crud_api_security.domain.entity.User;
 import com.example.sokolov.spring_boot_mvc_crud_api_security.domain.entity.UserRole;
 import com.example.sokolov.spring_boot_mvc_crud_api_security.service.RoleService;
 import com.example.sokolov.spring_boot_mvc_crud_api_security.service.UserService;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collections;
@@ -17,13 +16,11 @@ import java.util.Set;
 @RequestMapping("/admin")
 public class AdminRestController {
 
-    private final PasswordEncoder encoder;
     private final RoleService roleService;
     private final UserService userService;
 
-    public AdminRestController(UserService userService, PasswordEncoder encoder, RoleService roleService) {
+    public AdminRestController(UserService userService, RoleService roleService) {
         this.userService = userService;
-        this.encoder = encoder;
         this.roleService = roleService;
     }
 
@@ -47,8 +44,6 @@ public class AdminRestController {
             user.setRoles(Collections.singleton(byRoleName != null ? byRoleName : createdUserRole()));
         }
 
-        user.setPassword(encoder.encode(user.getPassword()));
-
         userService.saveAndUpdateUser(user);
         return user;
     }
@@ -62,8 +57,6 @@ public class AdminRestController {
         if (user.getRoles() == null || user.getRoles().isEmpty()) {
             throw new RuntimeException("User roles  ->  NULL or EMPTY");
         }
-
-        user.setPassword(encoder.encode(user.getPassword()));
 
         userService.saveAndUpdateUser(user);
         return user;

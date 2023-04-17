@@ -5,8 +5,10 @@ import com.example.sokolov.spring_boot_mvc_crud_api_security.domain.entity.User;
 import com.example.sokolov.spring_boot_mvc_crud_api_security.repository.RoleRepository;
 import com.example.sokolov.spring_boot_mvc_crud_api_security.repository.UserRepository;
 import org.hibernate.Hibernate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,13 +20,15 @@ import java.util.Set;
 @Service
 public class UserServiceImpl implements UserService {
 
+    private final PasswordEncoder encoder;
     private final UserRepository userRepo;
     private final RoleRepository roleRepository;
 
     public UserServiceImpl(UserRepository userRepo,
-                           RoleRepository roleRepository) {
+                           RoleRepository roleRepository, PasswordEncoder encoder) {
         this.userRepo = userRepo;
         this.roleRepository = roleRepository;
+        this.encoder = encoder;
     }
 
     @Override
@@ -48,6 +52,7 @@ public class UserServiceImpl implements UserService {
             }
             user.setRoles(roles);
         }
+        user.setPassword(encoder.encode(user.getPassword()));
         userRepo.save(user);
     }
 
