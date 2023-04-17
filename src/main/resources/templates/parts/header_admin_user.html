@@ -1,0 +1,35 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+
+<div class="container-fluid" th:fragment="headerAU"
+     style="padding-left: 20px; padding-right: 20px; background-color: #262626FF">
+    <header class="header">
+        <div class="row">
+            <div class="col-8">
+                <div class="d-flex justify-content-start">
+                    <div style=" display: flex; align-items: center; margin-top: 15px; margin-left: 45px">
+                        <p style="color: white"> <strong th:text="${user_auth.email}"></strong>
+                            with roles:
+                            <span th:text="${roles_list_userAuth}"></span></p>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-4">
+                <div class="d-flex justify-content-end">
+
+                    <a th:href="@{/login}" sec:authorize="isAnonymous()">
+                        <button class="button btn btn-outline-primary">Login</button>
+                    </a>
+                    <form th:action="@{/logout}" method="post"
+                          sec:authorize="isAuthenticated()">
+                        <input class="button btn btn-outline-primary" type="submit" value="Logout"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </header>
+</div>
+</html>

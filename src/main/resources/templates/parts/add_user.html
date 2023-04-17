@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<div th:fragment="add_user">
+
+    <div class="container-xl mx-auto p-2">
+        <div class="container-form-add">
+            <form>
+                    <label for="first_name">First Name</label><br>
+                    <input class="form-control" id="first_name" type="text" th:required="true">
+
+                    <label for="last_name">Last Name:</label><br>
+                    <input class="form-control" id="last_name" type="text" th:required="true">
+
+                    <label for="age">You age</label><br>
+                    <input class="form-control" id="age" type="number" th:required="true">
+
+                    <label for="email">Email</label> <span></span> <br>
+                    <input class="form-control" id="email" type="email" th:required="true">
+
+                    <label for="password">Password</label><br>
+                    <input class="form-control" type="password" id="password" th:required="true">
+                    <br>
+
+                    <label for="roles_">Role</label><br>
+                    <select class="form-select" multiple id="roles_" size="2">
+                        <th:block th:each="role : ${all_roles}">
+                            <option th:value="${role}"
+                                    th:text="${role.roleName}"
+                                    th:selected="${role.roleName == 'ROLE_USER'}"></option>
+                        </th:block>
+                    </select>
+                    <br>
+
+                <div class="button-container" style="display: flex; align-items: center; justify-content: center">
+                    <button type="button" class="btn btn-success" onclick="addNewUser()">Add new User</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+                validation_email("#email");
+            }
+        )
+    </script>
+</div>
+
+
+
