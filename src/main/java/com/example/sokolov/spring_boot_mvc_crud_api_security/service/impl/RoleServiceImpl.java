@@ -1,7 +1,8 @@
-package com.example.sokolov.spring_boot_mvc_crud_api_security.service;
+package com.example.sokolov.spring_boot_mvc_crud_api_security.service.impl;
 
 import com.example.sokolov.spring_boot_mvc_crud_api_security.domain.entity.Role;
 import com.example.sokolov.spring_boot_mvc_crud_api_security.repository.RoleRepository;
+import com.example.sokolov.spring_boot_mvc_crud_api_security.service.RoleService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

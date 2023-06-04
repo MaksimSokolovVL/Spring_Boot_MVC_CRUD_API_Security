@@ -2,6 +2,7 @@ package com.example.sokolov.spring_boot_mvc_crud_api_security.config;
 
 
 import com.example.sokolov.spring_boot_mvc_crud_api_security.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -17,11 +18,11 @@ import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final SuccessUserHandler successUserHandler;
-    private final UserService userService;
+    @Autowired
+    private UserService userService;
 
-    public WebSecurityConfig(SuccessUserHandler successUserHandler, UserService userService) {
+    public WebSecurityConfig(SuccessUserHandler successUserHandler) {
         this.successUserHandler = successUserHandler;
-        this.userService = userService;
     }
 
     @Bean
